@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boxly - Facturación</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body class="pagina-facturacion">
+    <aside class="sidebar">
+        <div class="brand">
+            <a href="inicio.html" class="brand-link">
+                <h2>Boxly</h2>
+            </a>
+        </div>
+        <br>
+        <br>
+        <nav class="sidebar-nav">
+            <a href="inicio.html" class="nav-item">
+                <span class="icon">🏠</span> <h3>Inicio</h3>
+            </a>
+            <a href="cajas.html" class="nav-item">
+                <span class="icon">📦</span> <h3>Mis cajas</h3>
+            </a>
+            <a href="facturacion.html" class="nav-item active" aria-current="page">
+                <span class="icon">📋</span> <h3>Facturación</h3>
+            </a>
+            <a href="bonos.html" class="nav-item">
+                <span class="icon">🎁</span> <h3>Bonos</h3>
+            </a>
+            <a href="configuracion.html" class="nav-item">
+                <span class="icon">⚙️</span> <h3>Configuración</h3>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="search" placeholder="Buscar..." aria-label="Buscar">
+            </div>
+            <div class="user-actions">
+                <button class="action-btn" type="button" title="Notificaciones">🔔</button>
+                <button class="action-btn" type="button" title="Carrito">🛒</button>
+                <button class="action-btn profile-btn" type="button" title="Perfil" onclick="window.location.href='Login.html'">👤</button>
+            </div>
+        </header>
+
+        <main class="content billing-content">
+            <section class="billing-heading">
+                <p class="welcome-text">¡Hola de nuevo, Jose! 👋</p>
+                <h1>Facturación y seguimiento</h1>
+                <p>Revisa el valor de tu suscripción, confirma el pago y consulta el estado de tu envío.</p>
+                <button class="add-invoice-btn" id="openInvoiceForm" type="button" aria-expanded="false" aria-controls="addInvoiceForm">
+                    <span aria-hidden="true">＋</span> Agregar factura
+                </button>
+            </section>
+
+            <form class="add-invoice-form hidden" id="addInvoiceForm">
+                <div class="add-invoice-form-heading">
+                    <div>
+                        <p class="section-eyebrow">NUEVA PRE-FACTURA</p>
+                        <h2>Agregar suscripción al cobro</h2>
+                    </div>
+                    <button class="close-invoice-form" id="closeInvoiceForm" type="button" aria-label="Cerrar formulario">×</button>
+                </div>
+                <div class="invoice-form-fields">
+                    <label>
+                        Nombre de la suscripción
+                        <input type="text" name="subscription" placeholder="Ej. Caja de tecnología" required maxlength="80">
+                    </label>
+                    <label>
+                        Valor mensual (COP)
+                        <input type="number" name="amount" placeholder="120000" required min="1" step="1">
+                    </label>
+                </div>
+                <div class="invoice-form-actions">
+                    <button class="save-invoice-btn" type="submit">Guardar pre-factura</button>
+                    <p class="prototype-note">Se agregará a esta lista como una pre-factura pendiente. No se realizará ningún cobro.</p>
+                </div>
+            </form>
+
+            <div class="billing-grid">
+                <section class="billing-panel invoice-panel" aria-labelledby="invoiceHeading">
+                    <div class="panel-heading">
+                        <div>
+                            <p class="section-eyebrow">RESUMEN DEL COBRO</p>
+                            <h2 id="invoiceHeading">Pre-factura</h2>
+                        </div>
+                        <span class="billing-status pending" id="paymentStatus">Pago pendiente</span>
+                    </div>
+
+                    <div class="invoice-reference">
+                        <span>Pre-factura</span>
+                        <strong>BOX-PRE-2026-1042</strong>
+                        <span>Generada el 13 de octubre de 2026</span>
+                    </div>
+
+                    <div class="invoice-item">
+                        <div class="invoice-product-icon" aria-hidden="true">📦</div>
+                        <div class="invoice-product">
+                            <h3>Cuidado personal</h3>
+                            <p>Suscripción mensual · Próximo ciclo</p>
+                        </div>
+                        <strong>120.000 COP</strong>
+                    </div>
+
+                    <dl class="invoice-totals">
+                        <div><dt>Subtotal</dt><dd>120.000 COP</dd></div>
+                        <div><dt>Envío</dt><dd>Gratis</dd></div>
+                        <div class="invoice-total"><dt>Total a pagar</dt><dd>120.000 COP</dd></div>
+                    </dl>
+
+                    <div class="payment-section">
+                        <h3>Selecciona un medio de pago</h3>
+                        <label class="payment-option">
+                            <input type="radio" name="payment-method" value="PSE" checked>
+                            <span class="payment-option-icon" aria-hidden="true">🏦</span>
+                            <span><strong>PSE</strong><small>Débito desde tu banco</small></span>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment-method" value="Tarjeta">
+                            <span class="payment-option-icon" aria-hidden="true">💳</span>
+                            <span><strong>Tarjeta</strong><small>Crédito o débito</small></span>
+                        </label>
+                        <button class="confirm-payment-btn" id="confirmPayment" type="button">
+                            Confirmar pago de 120.000 COP
+                        </button>
+                        <p class="prototype-note">Prototipo: confirmar simula el pago. No se realizará ningún cobro real.</p>
+                        <p class="billing-feedback" id="paymentFeedback" role="status" aria-live="polite"></p>
+                    </div>
+                </section>
+
+                <section class="billing-panel tracking-panel" aria-labelledby="trackingHeading">
+                    <div class="panel-heading">
+                        <div>
+                            <p class="section-eyebrow">ESTADO DE TU PEDIDO</p>
+                            <h2 id="trackingHeading">Seguimiento del envío</h2>
+                        </div>
+                        <span class="tracking-status" id="shippingStatus">Esperando el pago</span>
+                    </div>
+
+                    <div class="tracking-summary">
+                        <div>
+                            <span>Número de seguimiento</span>
+                            <strong id="trackingNumber">Se asignará al confirmar el pago</strong>
+                        </div>
+                        <div>
+                            <span>Entrega estimada</span>
+                            <strong id="deliveryEstimate">Pendiente de pago</strong>
+                        </div>
+                    </div>
+
+                    <ol class="tracking-timeline" id="trackingTimeline" aria-label="Progreso del envío">
+                        <li data-stage="preparing"><span class="timeline-dot"></span><div><strong>Preparando tu caja</strong><small>Alistaremos tu pedido para el despacho.</small></div></li>
+                        <li data-stage="shipped"><span class="timeline-dot"></span><div><strong>En camino</strong><small>Tu caja salió del centro de distribución.</small></div></li>
+                        <li data-stage="out-for-delivery"><span class="timeline-dot"></span><div><strong>En reparto</strong><small>El pedido está cerca de tu dirección.</small></div></li>
+                        <li data-stage="delivered"><span class="timeline-dot"></span><div><strong>Entregado</strong><small>¡Disfruta tu caja Boxly!</small></div></li>
+                    </ol>
+
+                    <button class="advance-shipping-btn" id="advanceShipping" type="button" disabled>
+                        Confirma el pago para iniciar el envío
+                    </button>
+                    <p class="prototype-note">Seguimiento de demostración: el estado no está conectado a una transportadora.</p>
+                </section>
+            </div>
+
+            <section class="billing-panel added-invoices-panel" id="addedInvoicesPanel" aria-labelledby="addedInvoicesHeading" hidden>
+                <div class="panel-heading">
+                    <div>
+                        <p class="section-eyebrow">TUS COBROS</p>
+                        <h2 id="addedInvoicesHeading">Facturas agregadas</h2>
+                    </div>
+                </div>
+                <div class="added-invoices-list" id="addedInvoicesList"></div>
+            </section>
+
+            <p class="billing-help">¿Necesitas ayuda con un cobro o envío? Comunícate con nuestro equipo de soporte.</p>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
